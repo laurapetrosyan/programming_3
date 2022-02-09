@@ -1,8 +1,8 @@
-class flower extends LivingCreature{
-    constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+var LivingCreature = require("./LivingCreature")
+
+module.exports = class flower extends LivingCreature{
+    constructor(x, y) {
+        super(x,y);
         this.multiply = 0;
 
         this.directions = [
@@ -17,24 +17,11 @@ class flower extends LivingCreature{
         ];
 
     }
-    chooseCell(character) {
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
 
-    }
     mul() {
         this.multiply++;
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.lenght)]
 
         console.log(emptyCells);
         if (newCell && this.multiply >= 5) {
